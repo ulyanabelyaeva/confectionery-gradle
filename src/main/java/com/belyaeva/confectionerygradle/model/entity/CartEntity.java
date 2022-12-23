@@ -1,8 +1,8 @@
 package com.belyaeva.confectionerygradle.model.entity;
 
+import jakarta.persistence.*;
 import lombok.*;
 
-import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -12,6 +12,8 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@NamedQuery(name = "CartEntity.findAllByUserId",
+        query = "select c from CartEntity c where c.user.id = ?1")
 public class CartEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

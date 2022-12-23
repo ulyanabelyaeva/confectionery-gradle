@@ -9,7 +9,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -20,19 +19,19 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    /*@Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;*/
 
     public boolean saveUser(UserEntity user) {
         // FIX: Return Optional
-        UserEntity userFromDB = userRepository.findByPhone(user.getUsername());
+        UserEntity userFromDB = userRepository.findByPhoneLike(user.getUsername());
 
         if (userFromDB != null) {
             return false;
         }
 
         user.setRoles(Collections.singleton(new RoleEntity("USER")));
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        /*user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));*/
         userRepository.save(user);
         return true;
     }
@@ -45,7 +44,7 @@ public class UserServiceImpl implements UserService {
             return null;
         else{
             UserDetails userDetails = (UserDetails) principal;
-            return userRepository.findByPhone(userDetails.getUsername());
+            return userRepository.findByPhoneLike(userDetails.getUsername());
         }
     }
 }

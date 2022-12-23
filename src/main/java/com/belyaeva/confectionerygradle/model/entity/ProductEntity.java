@@ -1,13 +1,14 @@
 package com.belyaeva.confectionerygradle.model.entity;
 
 
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.*;
+
 
 
 @Getter
@@ -16,6 +17,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @Table(name = "product")
+@NamedQuery(name = "ProductEntity.findAllByProductTypeId",
+    query = "select p from ProductEntity p where p.productType.id = ?1")
 public class ProductEntity {
 
     @Id

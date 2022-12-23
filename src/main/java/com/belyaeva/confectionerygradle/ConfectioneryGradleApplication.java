@@ -13,4 +13,5 @@ public class ConfectioneryGradleApplication {
 		SpringApplication.run(ConfectioneryGradleApplication.class, args);
 	}
 
+
 }

@@ -32,12 +32,14 @@ public class ProductServiceImpl implements ProductService {
             .filter(ProductEntity::isStatus)
             .collect(Collectors.toList());
     }
+
+
     public List<ProductEntity> getProductByProductTypeId(Long id){
         List<ProductEntity> productEntities;
         if (id == 1){
             productEntities = getAllProducts();
         } else {
-            productEntities = productRepository.findProductEntitiesByProductTypeId(id).stream()
+            productEntities = productRepository.findAllByProductTypeId(id).stream()
                 .filter(ProductEntity::isStatus)
                 .collect(Collectors.toList());
         }

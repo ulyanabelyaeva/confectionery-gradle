@@ -24,12 +24,14 @@ public class CartServiceImpl implements CartService {
     @Autowired
     private CartRepository cartRepository;
 
+
     public CartEntity getCartByUserId(Long id){
         return cartRepository.findAllByUserId(id).stream()
                 .filter(c -> !c.isStatus())
                 .findFirst()
                 .orElse(null);
     }
+
 
     public List<CartEntity> getOrderList(Long id){
         return cartRepository.findAllByUserId(id).stream()

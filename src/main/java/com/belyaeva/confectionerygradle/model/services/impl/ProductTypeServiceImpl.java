@@ -18,7 +18,8 @@ public class ProductTypeServiceImpl implements ProductTypeService {
         return productTypeRepository.findAll();
     }
 
+
     public ProductTypeEntity getProductTypeByName(String name){
-        return productTypeRepository.findProductTypeByName(name).get(0);
+        return productTypeRepository.findByName(name).get(0);
     }
 }

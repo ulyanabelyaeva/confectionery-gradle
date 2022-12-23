@@ -1,10 +1,10 @@
 package com.belyaeva.confectionerygradle.model.entity;
 
+import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import javax.persistence.*;
 import java.util.Collection;
 import java.util.Set;
 
@@ -15,6 +15,8 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@NamedQuery(name = "UserEntity.findByPhoneLike",
+        query = "select u from UserEntity u where u.phone = ?1")
 public class UserEntity implements UserDetails {
 
     @Id

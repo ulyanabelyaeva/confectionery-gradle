@@ -15,11 +15,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         // FIX: Return Optional
-        UserEntity user = userRepository.findByPhone(username);
+        UserEntity user = userRepository.findByPhoneLike(username);
 
         if (user == null)
             throw new UsernameNotFoundException("Пользователя с таким именем нет");
