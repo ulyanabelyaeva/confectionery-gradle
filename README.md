@@ -1,13 +1,28 @@
 # ConfectionerySpringWebApp
 
-## How to start
-* Для работы с этим приложением сконируйте проект. 
-* Создайте БД в MySQL c именем confectionerydb.
-* Запустите проект.
-* Запустите следующие скрипты в MySQL.
-* Зарегистрируйтесь, чтобы войти, как пользователь.
-* Чтобы войти, как администратор: 89180000000 admin.
-* Для запуска тестов: создайте БД в MySQL c именем confectionerydbtest.
+### Установка
+* для работы с этим приложением сконируйте проект.
+
+## Docker
+* измените в application.properties
+* spring.datasource.url=jdbc:mysql://db:3306/confectionery?serverTimezone=UTC
+* spring.datasource.username=user
+* spring.datasource.password=pass
+* собрите jar с помощью bootJar
+* запустите docker-compose.yml
+
+## без докера
+* изменить в application.properties
+* spring.datasource.url=jdbc:mysql://localhost:3306/confectionerydb?serverTimezone=UTC
+* spring.datasource.username=root
+* spring.datasource.password=root
+* создайте БД в MySQL c именем confectionerydb.
+* запустите проект.
+* запустите скрипты ниже в MySQL.
+
+## Использование
+* зарегистрируйтесь, чтобы войти, как пользователь.
+* чтобы войти, как администратор: 89180000000 admin.
 
 ### Скрипт 1:
 ```SQL

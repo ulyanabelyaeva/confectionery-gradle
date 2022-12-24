@@ -34,7 +34,8 @@ public class MainController {
     private CartServiceImpl cartServiceImpl;
 
     @GetMapping("/")
-    public String getMainPage(){
+    public String getMainPage(Model model){
+        model.addAttribute("tempUser", userServiceImpl.getTempUser());
         return "index";
     }
 

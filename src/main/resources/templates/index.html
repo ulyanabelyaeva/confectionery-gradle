@@ -18,7 +18,7 @@
             <div class="title"><a th:href="@{/catalog}">Кондитерская</a></div>
         </div>
         <div class="block2">
-            <a sec:authorize="!isAuthenticated()" th:href="@{/login}">
+            <a th:if="${tempUser == null}"  th:href="@{/login}">
                 <button class="btn_enter">Войти</button>
             </a>
         </div>

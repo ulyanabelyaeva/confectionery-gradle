@@ -12,6 +12,4 @@ public class ConfectioneryGradleApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ConfectioneryGradleApplication.class, args);
 	}
-
-
 }

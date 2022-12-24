@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:8.0.30
+    environment:
+      - MYSQL_ROOT_PASSWORD=user
+      - MYSQL_ROOT_USERNAME=pass
+      - MYSQL_DATABASE=confectionery
+    restart: always
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
+      - db_volume:/var/lib/mysql
+  spring:
+    build: .
+    ports:
+      - "8085:8085"
+    restart: always
+    depends_on:
+     - db
+
+volumes:
+  db_volume:
