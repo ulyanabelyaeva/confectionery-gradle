@@ -8,6 +8,8 @@
 * spring.datasource.url=jdbc:mysql://db:3306/confectionery?serverTimezone=UTC
 * spring.datasource.username=user
 * spring.datasource.password=pass
+* измените в mvcConfig
+* .addResourceLocations("classpath:image/"); строка 14
 * собрите jar с помощью bootJar
 * запустите docker-compose.yml
 
@@ -16,6 +18,8 @@
 * spring.datasource.url=jdbc:mysql://localhost:3306/confectionerydb?serverTimezone=UTC
 * spring.datasource.username=root
 * spring.datasource.password=root
+* измените в mvcConfig
+* .addResourceLocations("file:image/"); строка 14
 * создайте БД в MySQL c именем confectionerydb.
 * запустите проект.
 * запустите скрипты ниже в MySQL.
