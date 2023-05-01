@@ -1,22 +1,22 @@
 package com.belyaeva.confectionerygradle.services.abstractions;
 
-import com.belyaeva.confectionerygradle.entity.CartEntity;
+import com.belyaeva.confectionerygradle.entity.Cart;
 
 import java.util.List;
 
 public interface CartService {
 
-    CartEntity getCartByUserId(Long id);
+    Cart getCartByUserId(Long id);
 
-    CartEntity getCartById(Long id);
+    Cart getCartById(Long id);
 
-    void addNewCart(CartEntity cartEntity);
+    void addNewCart(Cart cart);
 
-    List<CartEntity> getOrderList(Long id);
+    List<Cart> getOrderList(Long id);
 
-    List<CartEntity> getUnreadyOrderList();
+    List<Cart> getUnreadyOrderList();
 
-    void moveOldCartToOrdersAndCreteNewCart(CartEntity cartEntity);
+    void moveOldCartToOrdersAndCreteNewCart(Cart cart);
 
-    void moveOrderToReady(CartEntity cartEntity);
+    void moveOrderToReady(Cart cart);
 }

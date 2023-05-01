@@ -1,12 +1,12 @@
 package com.belyaeva.confectionerygradle.services.abstractions;
 
-import com.belyaeva.confectionerygradle.entity.CartItemEntity;
+import com.belyaeva.confectionerygradle.entity.CartItem;
 
 public interface CartItemService {
 
-    CartItemEntity getItemById(Long id);
+    CartItem getItemById(Long id);
 
-    void addNewItem(CartItemEntity cartItemEntity);
+    void addNewItem(CartItem cartItem);
 
     void deleteItemById(Long id);
 

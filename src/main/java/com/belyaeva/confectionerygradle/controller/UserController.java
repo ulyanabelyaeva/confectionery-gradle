@@ -1,6 +1,6 @@
 package com.belyaeva.confectionerygradle.controller;
 
-import com.belyaeva.confectionerygradle.entity.CartEntity;
+import com.belyaeva.confectionerygradle.entity.Cart;
 import com.belyaeva.confectionerygradle.services.impl.CartServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,16 +14,20 @@ import java.util.List;
 @Controller
 public class UserController {
 
-    @Autowired
-    private UserServiceImpl userServiceImpl;
+    private final UserServiceImpl userServiceImpl;
+
+    private final CartServiceImpl cartServiceImpl;
 
     @Autowired
-    private CartServiceImpl cartServiceImpl;
+    public UserController(UserServiceImpl userServiceImpl, CartServiceImpl cartServiceImpl) {
+        this.userServiceImpl = userServiceImpl;
+        this.cartServiceImpl = cartServiceImpl;
+    }
 
     @GetMapping("/user")
     public String userPage(Model model){
         model.addAttribute("tempUser", userServiceImpl.getTempUser());
-        List<CartEntity> orders = cartServiceImpl.getOrderList(userServiceImpl.getTempUser().getId());
+        List<Cart> orders = cartServiceImpl.getOrderList(userServiceImpl.getTempUser().getId());
         model.addAttribute("orders", orders);
         return "user";
     }

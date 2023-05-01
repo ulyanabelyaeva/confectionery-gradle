@@ -1,8 +1,8 @@
 package com.belyaeva.confectionerygradle.services.impl;
 
-import com.belyaeva.confectionerygradle.entity.ProductEntity;
-import com.belyaeva.confectionerygradle.entity.ProductTypeEntity;
-import com.belyaeva.confectionerygradle.entity.UserEntity;
+import com.belyaeva.confectionerygradle.entity.Product;
+import com.belyaeva.confectionerygradle.entity.ProductType;
+import com.belyaeva.confectionerygradle.entity.User;
 import com.belyaeva.confectionerygradle.services.abstractions.ProductFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,19 +13,23 @@ import java.util.List;
 @Service
 public class SpringUiModelProductFacade implements ProductFacade<Model, Model> {
 
-    @Autowired
-    private ProductTypeServiceImpl productTypeServiceImpl;
+    private final ProductTypeServiceImpl productTypeServiceImpl;
+
+    private final ProductServiceImpl productServiceImpl;
+
+    private final UserServiceImpl userServiceImpl;
 
     @Autowired
-    private ProductServiceImpl productServiceImpl;
-
-    @Autowired
-    private UserServiceImpl userServiceImpl;
+    public SpringUiModelProductFacade(ProductTypeServiceImpl productTypeServiceImpl, ProductServiceImpl productServiceImpl, UserServiceImpl userServiceImpl) {
+        this.productTypeServiceImpl = productTypeServiceImpl;
+        this.productServiceImpl = productServiceImpl;
+        this.userServiceImpl = userServiceImpl;
+    }
 
     public Model getProductsAndUser(Model model) {
-        List<ProductTypeEntity> productTypeList = productTypeServiceImpl.getProductTypeList();
-        List<ProductEntity> productList = productServiceImpl.getAllProducts();
-        UserEntity user = userServiceImpl.getTempUser();
+        List<ProductType> productTypeList = productTypeServiceImpl.getProductTypeList();
+        List<Product> productList = productServiceImpl.getAllProducts();
+        User user = userServiceImpl.getTempUser();
         model.addAttribute("tempUser", user);
         model.addAttribute("productTypes", productTypeList);
         model.addAttribute("products", productList);
@@ -34,7 +38,7 @@ public class SpringUiModelProductFacade implements ProductFacade<Model, Model> {
 
     public Model getProductsByTypeAndUser(Long id, Model model){
         getProductsAndUser(model);
-        List<ProductEntity> productList = productServiceImpl.getProductByProductTypeId(id);
+        List<Product> productList = productServiceImpl.getProductByProductTypeId(id);
         model.addAttribute("products", productList);
         return model;
     }

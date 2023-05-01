@@ -1,14 +1,21 @@
 package com.belyaeva.confectionerygradle.entity;
 
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
-
-
 
 
 @Getter
@@ -17,9 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 @NoArgsConstructor
 @Entity
 @Table(name = "product")
-@NamedQuery(name = "ProductEntity.findAllByProductTypeId",
-    query = "select p from ProductEntity p where p.productType.id = ?1")
-public class ProductEntity {
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,9 +33,9 @@ public class ProductEntity {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne(targetEntity = ProductTypeEntity.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = ProductType.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "product_type_id")
-    private ProductTypeEntity productType;
+    private ProductType productType;
 
     @Column(name = "price")
     private int price;

@@ -1,6 +1,6 @@
 package com.belyaeva.confectionerygradle.services.impl;
 
-import com.belyaeva.confectionerygradle.entity.ProductEntity;
+import com.belyaeva.confectionerygradle.entity.Product;
 import com.belyaeva.confectionerygradle.repository.ProductRepository;
 import com.belyaeva.confectionerygradle.services.StorageProperties;
 import com.belyaeva.confectionerygradle.services.abstractions.ProductService;
@@ -18,60 +18,66 @@ import java.util.stream.Collectors;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-    @Autowired
-    private ProductRepository productRepository;
-    @Autowired
-    private ProductTypeServiceImpl productTypeServiceImpl;
-
-    @Autowired
-    private StorageProperties storageProperties;
     private final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 
-    public List<ProductEntity> getAllProducts(){
+    private final ProductRepository productRepository;
+
+    private final ProductTypeServiceImpl productTypeServiceImpl;
+
+    private final StorageProperties storageProperties;
+
+    @Autowired
+    public ProductServiceImpl(ProductRepository productRepository, ProductTypeServiceImpl productTypeServiceImpl, StorageProperties storageProperties) {
+        this.productRepository = productRepository;
+        this.productTypeServiceImpl = productTypeServiceImpl;
+        this.storageProperties = storageProperties;
+    }
+
+    public List<Product> getAllProducts(){
         return productRepository.findAll().stream()
-            .filter(ProductEntity::isStatus)
+            .filter(Product::isStatus)
             .collect(Collectors.toList());
     }
 
 
-    public List<ProductEntity> getProductByProductTypeId(Long id){
-        List<ProductEntity> productEntities;
+    public List<Product> getProductByProductTypeId(Long id){
+        List<Product> productEntities;
         if (id == 1){
             productEntities = getAllProducts();
         } else {
             productEntities = productRepository.findAllByProductTypeId(id).stream()
-                .filter(ProductEntity::isStatus)
+                .filter(Product::isStatus)
                 .collect(Collectors.toList());
         }
         return productEntities;
     }
 
-    public ProductEntity getProductById(Long id){
+    public Product getProductById(Long id){
         return productRepository.findById(id).orElse(null);
     }
 
-    private ProductEntity createImage(ProductEntity productEntity){
-        String name = productEntity.getIcon().getOriginalFilename();
+    private Product createImage(Product product){
+        String name = product.getIcon().getOriginalFilename();
         String filePath = System.getProperty("user.dir") + Paths.get(storageProperties.getLocation()) + "\\" + name;
         try {
             File newImage = new File(filePath);
-            productEntity.getIcon().transferTo(newImage);
-            productEntity.setImage(productEntity.getIcon().getOriginalFilename());
-            productEntity.setIcon(null);
+            product.getIcon().transferTo(newImage);
+            product.setImage(product.getIcon().getOriginalFilename());
+            product.setIcon(null);
         } catch (IOException e) {
             logger.info("не удалось создать файл");
         }
-        return productEntity;
+        return product;
     }
 
-    public ProductEntity addNewProduct(ProductEntity product){
+    public Product addNewProduct(Product product){
         createImage(product);
         product.setProductType(productTypeServiceImpl.getProductTypeByName(product.getNameProductType()));
         product.setStatus(true);
         return productRepository.save(product);
     }
 
-    public ProductEntity changeProduct(ProductEntity product){
+    public Product changeProduct(Product product){
         if (isNewImage(product)){
             product.setImage(productRepository.findById(product.getId()).get().getImage());
         } else {
@@ -82,13 +88,13 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.save(product);
     }
 
-    private boolean isNewImage(ProductEntity product){
+    private boolean isNewImage(Product product){
         return product.getIcon().getOriginalFilename().equals("");
     }
 
     public void deleteProduct(Long id){
-        ProductEntity productEntity = productRepository.findById(id).orElse(null);
-        productEntity.setStatus(false);
-        productRepository.save(productEntity);
+        Product product = productRepository.findById(id).orElse(null);
+        product.setStatus(false);
+        productRepository.save(product);
     }
 }

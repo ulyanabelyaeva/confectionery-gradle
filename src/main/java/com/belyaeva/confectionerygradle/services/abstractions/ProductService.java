@@ -1,20 +1,20 @@
 package com.belyaeva.confectionerygradle.services.abstractions;
 
-import com.belyaeva.confectionerygradle.entity.ProductEntity;
+import com.belyaeva.confectionerygradle.entity.Product;
 
 import java.util.List;
 
 public interface ProductService {
 
-    List<ProductEntity> getAllProducts();
+    List<Product> getAllProducts();
 
-    List<ProductEntity> getProductByProductTypeId(Long id);
+    List<Product> getProductByProductTypeId(Long id);
 
-    ProductEntity getProductById(Long id);
+    Product getProductById(Long id);
 
-    ProductEntity addNewProduct(ProductEntity productEntity);
+    Product addNewProduct(Product product);
 
-    ProductEntity changeProduct(ProductEntity productEntity);
+    Product changeProduct(Product product);
 
     void deleteProduct(Long id);
 }

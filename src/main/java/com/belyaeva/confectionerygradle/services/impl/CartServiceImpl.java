@@ -1,6 +1,6 @@
 package com.belyaeva.confectionerygradle.services.impl;
 
-import com.belyaeva.confectionerygradle.entity.CartEntity;
+import com.belyaeva.confectionerygradle.entity.Cart;
 import com.belyaeva.confectionerygradle.services.abstractions.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,11 +21,15 @@ public class CartServiceImpl implements CartService {
 
     private final Logger logger = Logger.getLogger(CartServiceImpl.class.getName());
 
+    private final CartRepository cartRepository;
+
     @Autowired
-    private CartRepository cartRepository;
+    public CartServiceImpl(CartRepository cartRepository) {
+        this.cartRepository = cartRepository;
+    }
 
 
-    public CartEntity getCartByUserId(Long id){
+    public Cart getCartByUserId(Long id){
         return cartRepository.findAllByUserId(id).stream()
                 .filter(c -> !c.isStatus())
                 .findFirst()
@@ -33,10 +37,10 @@ public class CartServiceImpl implements CartService {
     }
 
 
-    public List<CartEntity> getOrderList(Long id){
+    public List<Cart> getOrderList(Long id){
         return cartRepository.findAllByUserId(id).stream()
-                .filter(CartEntity::isStatus)
-                .sorted(((Comparator<CartEntity>) (o1, o2) -> {
+                .filter(Cart::isStatus)
+                .sorted(((Comparator<Cart>) (o1, o2) -> {
                     try {
                         return TEXT_FORMATTER.parse(o1.getDate()).compareTo(TEXT_FORMATTER.parse(o2.getDate()));
                     } catch (ParseException e) {
@@ -47,28 +51,28 @@ public class CartServiceImpl implements CartService {
                 .collect(Collectors.toList());
     }
 
-    public List<CartEntity> getUnreadyOrderList(){
+    public List<Cart> getUnreadyOrderList(){
         return cartRepository.findAll().stream()
                 .filter(c -> !c.isReady() && c.isStatus())
                 .collect(Collectors.toList());
     }
 
-    public void addNewCart(CartEntity cartEntity){
-        cartRepository.save(cartEntity);
+    public void addNewCart(Cart cart){
+        cartRepository.save(cart);
     }
 
-    public void moveOldCartToOrdersAndCreteNewCart(CartEntity cartEntity){
-        cartEntity.setDate(TEXT_FORMATTER.format(new Date()));
-        cartEntity.setStatus(true);
-        cartRepository.save(cartEntity);
+    public void moveOldCartToOrdersAndCreteNewCart(Cart cart){
+        cart.setDate(TEXT_FORMATTER.format(new Date()));
+        cart.setStatus(true);
+        cartRepository.save(cart);
     }
 
-    public void moveOrderToReady(CartEntity cartEntity){
-        cartEntity.setReady(true);
-        cartRepository.save(cartEntity);
+    public void moveOrderToReady(Cart cart){
+        cart.setReady(true);
+        cartRepository.save(cart);
     }
 
-    public CartEntity getCartById(Long id){
+    public Cart getCartById(Long id){
         return cartRepository.findById(id).orElse(null);
     }
 

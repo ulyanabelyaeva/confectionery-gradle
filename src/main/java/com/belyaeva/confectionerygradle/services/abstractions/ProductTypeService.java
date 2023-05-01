@@ -1,13 +1,13 @@
 package com.belyaeva.confectionerygradle.services.abstractions;
 
-import com.belyaeva.confectionerygradle.entity.ProductTypeEntity;
+import com.belyaeva.confectionerygradle.entity.ProductType;
 
 import java.util.List;
 
 public interface ProductTypeService {
 
-    List<ProductTypeEntity> getProductTypeList();
+    List<ProductType> getProductTypeList();
 
-    ProductTypeEntity getProductTypeByName(String name);
+    ProductType getProductTypeByName(String name);
 
 }

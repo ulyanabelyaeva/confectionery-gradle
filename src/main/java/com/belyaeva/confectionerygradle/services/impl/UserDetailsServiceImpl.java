@@ -1,7 +1,7 @@
 package com.belyaeva.confectionerygradle.services.impl;
 
-import com.belyaeva.confectionerygradle.entity.RoleEntity;
-import com.belyaeva.confectionerygradle.entity.UserEntity;
+import com.belyaeva.confectionerygradle.entity.Role;
+import com.belyaeva.confectionerygradle.entity.User;
 import com.belyaeva.confectionerygradle.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,20 +12,24 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
+    private final UserRepository userRepository;
+
     @Autowired
-    private UserRepository userRepository;
+    public UserDetailsServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         // FIX: Return Optional
-        UserEntity user = userRepository.findByPhoneLike(username);
+        User user = userRepository.findByPhone(username);
 
         if (user == null)
             throw new UsernameNotFoundException("Пользователя с таким именем нет");
 
-        RoleEntity[] userRoleEntities = user.getRoles().toArray(RoleEntity[]::new);
+        Role[] userRoleEntities = user.getRoles().toArray(Role[]::new);
         String [] userRolesStr = new String[userRoleEntities.length];
         for (int i = 0; i < userRoleEntities.length; i++) {
             userRolesStr[i] = userRoleEntities[i].getName();

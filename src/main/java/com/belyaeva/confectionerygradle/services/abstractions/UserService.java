@@ -1,11 +1,11 @@
 package com.belyaeva.confectionerygradle.services.abstractions;
 
-import com.belyaeva.confectionerygradle.entity.UserEntity;
+import com.belyaeva.confectionerygradle.entity.User;
 
 public interface UserService {
 
-    UserEntity getTempUser();
+    User getTempUser();
 
-    boolean saveUser(UserEntity user);
+    boolean saveUser(User user);
 
 }

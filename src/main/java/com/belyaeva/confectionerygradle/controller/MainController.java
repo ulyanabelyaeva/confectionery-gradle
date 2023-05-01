@@ -18,20 +18,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class MainController {
 
-    @Autowired
-    private ProductFacade<Model, Model> productFacade;
+    private final ProductFacade<Model, Model> productFacade;
+
+    private final CartItemServiceImpl cartItemServiceImpl;
+
+    private final UserServiceImpl userServiceImpl;
+
+    private final ProductServiceImpl productServiceImpl;
+
+    private final CartServiceImpl cartServiceImpl;
 
     @Autowired
-    private CartItemServiceImpl cartItemServiceImpl;
-
-    @Autowired
-    private UserServiceImpl userServiceImpl;
-
-    @Autowired
-    private ProductServiceImpl productServiceImpl;
-
-    @Autowired
-    private CartServiceImpl cartServiceImpl;
+    public MainController(ProductFacade<Model, Model> productFacade, CartItemServiceImpl cartItemServiceImpl, UserServiceImpl userServiceImpl, ProductServiceImpl productServiceImpl, CartServiceImpl cartServiceImpl) {
+        this.productFacade = productFacade;
+        this.cartItemServiceImpl = cartItemServiceImpl;
+        this.userServiceImpl = userServiceImpl;
+        this.productServiceImpl = productServiceImpl;
+        this.cartServiceImpl = cartServiceImpl;
+    }
 
     @GetMapping("/")
     public String getMainPage(Model model){
@@ -52,11 +56,11 @@ public class MainController {
     }
 
     private boolean isAdmin() {
-        UserEntity user = userServiceImpl.getTempUser();
+        User user = userServiceImpl.getTempUser();
         if (user == null) {
             return false;
         }
-        RoleEntity role = user.getRoles().stream()
+        Role role = user.getRoles().stream()
             .filter(r -> r.getName().equals("USER"))
             .findFirst()
             .orElse(null);
@@ -94,10 +98,10 @@ public class MainController {
 
     private void addNewItemToCart(String id){
         Long idProduct = Long.parseLong(id);
-        ProductEntity product = productServiceImpl.getProductById(idProduct);
-        CartEntity cart = cartServiceImpl.getCartByUserId(userServiceImpl.getTempUser().getId());
+        Product product = productServiceImpl.getProductById(idProduct);
+        Cart cart = cartServiceImpl.getCartByUserId(userServiceImpl.getTempUser().getId());
         cart.setCost(cart.getCost() + product.getPrice());
-        CartItemEntity cartItem = CartItemEntity.builder()
+        CartItem cartItem = CartItem.builder()
                 .product(product)
                 .cart(cart)
                 .build();

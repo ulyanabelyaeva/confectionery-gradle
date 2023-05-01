@@ -1,6 +1,6 @@
 package com.belyaeva.confectionerygradle.controller;
 
-import com.belyaeva.confectionerygradle.entity.CartEntity;
+import com.belyaeva.confectionerygradle.entity.Cart;
 import com.belyaeva.confectionerygradle.services.impl.CartItemServiceImpl;
 import com.belyaeva.confectionerygradle.services.impl.CartServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,28 +11,32 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.belyaeva.confectionerygradle.services.impl.UserServiceImpl;
-import com.belyaeva.confectionerygradle.entity.UserEntity;
+import com.belyaeva.confectionerygradle.entity.User;
 
 @Controller
 public class CartController {
 
-    @Autowired
-    private UserServiceImpl userServiceImpl;
+    private final UserServiceImpl userServiceImpl;
+
+    private final CartServiceImpl cartServiceImpl;
+
+    private final CartItemServiceImpl cartItemServiceImpl;
 
     @Autowired
-    private CartServiceImpl cartServiceImpl;
-
-    @Autowired
-    private CartItemServiceImpl cartItemServiceImpl;
+    public CartController(UserServiceImpl userServiceImpl, CartServiceImpl cartServiceImpl, CartItemServiceImpl cartItemServiceImpl) {
+        this.userServiceImpl = userServiceImpl;
+        this.cartServiceImpl = cartServiceImpl;
+        this.cartItemServiceImpl = cartItemServiceImpl;
+    }
 
     @GetMapping("/user/cart")
     public String getCart(Model model){
 
-        UserEntity user = userServiceImpl.getTempUser();
+        User user = userServiceImpl.getTempUser();
 
-        CartEntity cartEntity = cartServiceImpl.getCartByUserId(user.getId());
+        Cart cart = cartServiceImpl.getCartByUserId(user.getId());
         model.addAttribute("tempUser", user);
-        model.addAttribute("cart", cartEntity);
+        model.addAttribute("cart", cart);
 
         return "cart";
     }
@@ -40,10 +44,10 @@ public class CartController {
     @PostMapping("/user/cart")
     public String deleteItem(@RequestParam("btn") String btn, Model model){
         if (btn.equals("pay")){
-            UserEntity user = userServiceImpl.getTempUser();
-            CartEntity cartEntity = cartServiceImpl.getCartByUserId(user.getId());
-            cartServiceImpl.moveOldCartToOrdersAndCreteNewCart(cartEntity);
-            cartServiceImpl.addNewCart(CartEntity.builder()
+            User user = userServiceImpl.getTempUser();
+            Cart cart = cartServiceImpl.getCartByUserId(user.getId());
+            cartServiceImpl.moveOldCartToOrdersAndCreteNewCart(cart);
+            cartServiceImpl.addNewCart(Cart.builder()
                     .user(user)
                     .status(false)
                     .ready(false)
@@ -52,8 +56,8 @@ public class CartController {
             model.addAttribute("tempUser", user);
         } else {
             Long idItem = Long.parseLong(btn);
-            CartEntity cartEntity = cartServiceImpl.getCartByUserId(userServiceImpl.getTempUser().getId());
-            cartEntity.setCost(cartEntity.getCost() - cartItemServiceImpl.getItemById(idItem).getProduct().getPrice());
+            Cart cart = cartServiceImpl.getCartByUserId(userServiceImpl.getTempUser().getId());
+            cart.setCost(cart.getCost() - cartItemServiceImpl.getItemById(idItem).getProduct().getPrice());
             cartItemServiceImpl.deleteItemById(idItem);
         }
         return "redirect:/user/cart";

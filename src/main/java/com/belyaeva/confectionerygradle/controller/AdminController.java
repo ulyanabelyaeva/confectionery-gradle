@@ -1,7 +1,7 @@
 package com.belyaeva.confectionerygradle.controller;
 
-import com.belyaeva.confectionerygradle.entity.CartEntity;
-import com.belyaeva.confectionerygradle.entity.ProductEntity;
+import com.belyaeva.confectionerygradle.entity.Cart;
+import com.belyaeva.confectionerygradle.entity.Product;
 import com.belyaeva.confectionerygradle.services.abstractions.ProductFacade;
 import com.belyaeva.confectionerygradle.services.impl.CartServiceImpl;
 import com.belyaeva.confectionerygradle.services.impl.ProductServiceImpl;
@@ -16,22 +16,26 @@ import java.util.List;
 @Controller
 public class AdminController {
 
-    @Autowired
-    private CartServiceImpl cartServiceImpl;
+    private final CartServiceImpl cartServiceImpl;
+
+    private final UserServiceImpl userServiceImpl;
+
+    private final ProductFacade<Model, Model> productFacade;
+
+    private final ProductServiceImpl productServiceImpl;
 
     @Autowired
-    private UserServiceImpl userServiceImpl;
-
-    @Autowired
-    private ProductFacade<Model, Model> productFacade;
-
-    @Autowired
-    private ProductServiceImpl productServiceImpl;
+    public AdminController(CartServiceImpl cartServiceImpl, UserServiceImpl userServiceImpl, ProductFacade<Model, Model> productFacade, ProductServiceImpl productServiceImpl) {
+        this.cartServiceImpl = cartServiceImpl;
+        this.userServiceImpl = userServiceImpl;
+        this.productFacade = productFacade;
+        this.productServiceImpl = productServiceImpl;
+    }
 
     @GetMapping("/admin")
     public String getAdminPage(Model model){
         model.addAttribute("tempUser", userServiceImpl.getTempUser());
-        List<CartEntity> orders = cartServiceImpl.getUnreadyOrderList();
+        List<Cart> orders = cartServiceImpl.getUnreadyOrderList();
         model.addAttribute("orders", orders);
         return "admin";
     }
@@ -39,8 +43,8 @@ public class AdminController {
     @PostMapping("/admin")
     public String reformOrder(@RequestParam("btn") String btn, @RequestParam("cartId") Long cartId, Model model){
         if (btn.equals("ready")){
-            CartEntity cartEntity = cartServiceImpl.getCartById(cartId);
-            cartServiceImpl.moveOrderToReady(cartEntity);
+            Cart cart = cartServiceImpl.getCartById(cartId);
+            cartServiceImpl.moveOrderToReady(cart);
         }
         return "redirect:/admin";
     }
@@ -60,12 +64,12 @@ public class AdminController {
 
     private void showPutOrAdd(Long id, Model model) {
         if (id != -1){
-            ProductEntity product = productServiceImpl.getProductById(id);
+            Product product = productServiceImpl.getProductById(id);
             product.setNameProductType(product.getProductType().getName());
             model.addAttribute("put_product", product);
         }
         else{
-            model.addAttribute("add_product", new ProductEntity());
+            model.addAttribute("add_product", new Product());
             model.addAttribute("put_product", null);
         }
     }
@@ -76,14 +80,14 @@ public class AdminController {
     }
 
     @PostMapping("/admin/catalog")
-    public String addNewProduct(@ModelAttribute("add_product") ProductEntity productEntity){
-        productServiceImpl.addNewProduct(productEntity);
+    public String addNewProduct(@ModelAttribute("add_product") Product product){
+        productServiceImpl.addNewProduct(product);
         return "redirect:/admin/catalog";
     }
 
     @PostMapping("/admin/catalog/{id}")
-    public String addNewProductIfOnProductTypeChoice(@ModelAttribute("add_product") ProductEntity productEntity){
-        productServiceImpl.addNewProduct(productEntity);
+    public String addNewProductIfOnProductTypeChoice(@ModelAttribute("add_product") Product product){
+        productServiceImpl.addNewProduct(product);
         return "redirect:/admin/catalog";
     }
 
@@ -100,14 +104,14 @@ public class AdminController {
     }
 
     @PutMapping("/admin/catalog")
-    public String putProduct(@ModelAttribute("put_product") ProductEntity productEntity){
-        productServiceImpl.changeProduct(productEntity);
+    public String putProduct(@ModelAttribute("put_product") Product product){
+        productServiceImpl.changeProduct(product);
         return "redirect:/admin/catalog";
     }
 
     @PutMapping("/admin/catalog/{id}")
-    public String putProductIfOnProductTypeChoice(@ModelAttribute("put_product") ProductEntity productEntity){
-        productServiceImpl.changeProduct(productEntity);
+    public String putProductIfOnProductTypeChoice(@ModelAttribute("put_product") Product product){
+        productServiceImpl.changeProduct(product);
         return "redirect:/admin/catalog/{id}";
     }
 
