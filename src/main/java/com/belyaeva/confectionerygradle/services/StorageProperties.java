@@ -1,4 +1,4 @@
-package com.belyaeva.confectionerygradle.model.services;
+package com.belyaeva.confectionerygradle.services;
 
 import lombok.Getter;
 import lombok.Setter;

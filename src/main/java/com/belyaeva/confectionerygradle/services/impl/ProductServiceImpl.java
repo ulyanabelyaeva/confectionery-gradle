@@ -1,9 +1,9 @@
-package com.belyaeva.confectionerygradle.model.services.impl;
+package com.belyaeva.confectionerygradle.services.impl;
 
-import com.belyaeva.confectionerygradle.model.entity.ProductEntity;
-import com.belyaeva.confectionerygradle.model.repository.ProductRepository;
-import com.belyaeva.confectionerygradle.model.services.StorageProperties;
-import com.belyaeva.confectionerygradle.model.services.abstractions.ProductService;
+import com.belyaeva.confectionerygradle.entity.ProductEntity;
+import com.belyaeva.confectionerygradle.repository.ProductRepository;
+import com.belyaeva.confectionerygradle.services.StorageProperties;
+import com.belyaeva.confectionerygradle.services.abstractions.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

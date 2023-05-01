@@ -1,6 +1,6 @@
-package com.belyaeva.confectionerygradle.model.services.abstractions;
+package com.belyaeva.confectionerygradle.services.abstractions;
 
-import com.belyaeva.confectionerygradle.model.entity.CartItemEntity;
+import com.belyaeva.confectionerygradle.entity.CartItemEntity;
 
 public interface CartItemService {
 

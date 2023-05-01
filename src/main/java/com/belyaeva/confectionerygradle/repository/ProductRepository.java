@@ -1,9 +1,7 @@
-package com.belyaeva.confectionerygradle.model.repository;
+package com.belyaeva.confectionerygradle.repository;
 
-import com.belyaeva.confectionerygradle.model.entity.ProductEntity;
+import com.belyaeva.confectionerygradle.entity.ProductEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

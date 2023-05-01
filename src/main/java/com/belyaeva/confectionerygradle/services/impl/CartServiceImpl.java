@@ -1,10 +1,10 @@
-package com.belyaeva.confectionerygradle.model.services.impl;
+package com.belyaeva.confectionerygradle.services.impl;
 
-import com.belyaeva.confectionerygradle.model.entity.CartEntity;
-import com.belyaeva.confectionerygradle.model.services.abstractions.CartService;
+import com.belyaeva.confectionerygradle.entity.CartEntity;
+import com.belyaeva.confectionerygradle.services.abstractions.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.belyaeva.confectionerygradle.model.repository.CartRepository;
+import com.belyaeva.confectionerygradle.repository.CartRepository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

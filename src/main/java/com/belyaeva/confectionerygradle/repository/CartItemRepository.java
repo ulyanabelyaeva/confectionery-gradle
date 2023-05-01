@@ -1,6 +1,6 @@
-package com.belyaeva.confectionerygradle.model.repository;
+package com.belyaeva.confectionerygradle.repository;
 
-import com.belyaeva.confectionerygradle.model.entity.CartItemEntity;
+import com.belyaeva.confectionerygradle.entity.CartItemEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

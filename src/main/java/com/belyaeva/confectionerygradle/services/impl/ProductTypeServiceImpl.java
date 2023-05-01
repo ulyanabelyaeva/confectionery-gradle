@@ -1,8 +1,8 @@
-package com.belyaeva.confectionerygradle.model.services.impl;
+package com.belyaeva.confectionerygradle.services.impl;
 
-import com.belyaeva.confectionerygradle.model.entity.ProductTypeEntity;
-import com.belyaeva.confectionerygradle.model.repository.ProductTypeRepository;
-import com.belyaeva.confectionerygradle.model.services.abstractions.ProductTypeService;
+import com.belyaeva.confectionerygradle.entity.ProductTypeEntity;
+import com.belyaeva.confectionerygradle.repository.ProductTypeRepository;
+import com.belyaeva.confectionerygradle.services.abstractions.ProductTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

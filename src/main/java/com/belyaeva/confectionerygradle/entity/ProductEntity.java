@@ -1,4 +1,4 @@
-package com.belyaeva.confectionerygradle.model.entity;
+package com.belyaeva.confectionerygradle.entity;
 
 
 import jakarta.persistence.*;

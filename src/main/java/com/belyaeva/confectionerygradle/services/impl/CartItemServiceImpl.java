@@ -1,8 +1,8 @@
-package com.belyaeva.confectionerygradle.model.services.impl;
+package com.belyaeva.confectionerygradle.services.impl;
 
-import com.belyaeva.confectionerygradle.model.entity.CartItemEntity;
-import com.belyaeva.confectionerygradle.model.repository.CartItemRepository;
-import com.belyaeva.confectionerygradle.model.services.abstractions.CartItemService;
+import com.belyaeva.confectionerygradle.entity.CartItemEntity;
+import com.belyaeva.confectionerygradle.repository.CartItemRepository;
+import com.belyaeva.confectionerygradle.services.abstractions.CartItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

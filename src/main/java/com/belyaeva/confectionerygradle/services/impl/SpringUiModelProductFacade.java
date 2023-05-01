@@ -1,9 +1,9 @@
-package com.belyaeva.confectionerygradle.model.services.impl;
+package com.belyaeva.confectionerygradle.services.impl;
 
-import com.belyaeva.confectionerygradle.model.entity.ProductEntity;
-import com.belyaeva.confectionerygradle.model.entity.ProductTypeEntity;
-import com.belyaeva.confectionerygradle.model.entity.UserEntity;
-import com.belyaeva.confectionerygradle.model.services.abstractions.ProductFacade;
+import com.belyaeva.confectionerygradle.entity.ProductEntity;
+import com.belyaeva.confectionerygradle.entity.ProductTypeEntity;
+import com.belyaeva.confectionerygradle.entity.UserEntity;
+import com.belyaeva.confectionerygradle.services.abstractions.ProductFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;

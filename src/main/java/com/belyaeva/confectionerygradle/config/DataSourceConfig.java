@@ -1,6 +1,6 @@
 package com.belyaeva.confectionerygradle.config;
 
-import com.belyaeva.confectionerygradle.model.services.DataProperties;
+import com.belyaeva.confectionerygradle.services.DataProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

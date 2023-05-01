@@ -1,6 +1,6 @@
-package com.belyaeva.confectionerygradle.model.services.abstractions;
+package com.belyaeva.confectionerygradle.services.abstractions;
 
-import com.belyaeva.confectionerygradle.model.entity.ProductTypeEntity;
+import com.belyaeva.confectionerygradle.entity.ProductTypeEntity;
 
 import java.util.List;
 

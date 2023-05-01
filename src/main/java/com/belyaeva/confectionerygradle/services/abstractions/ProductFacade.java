@@ -1,4 +1,4 @@
-package com.belyaeva.confectionerygradle.model.services.abstractions;
+package com.belyaeva.confectionerygradle.services.abstractions;
 
 public interface ProductFacade<T, U> {
     T getProductsAndUser(U model);

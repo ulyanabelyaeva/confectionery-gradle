@@ -1,9 +1,9 @@
-package com.belyaeva.confectionerygradle.model.services.impl;
+package com.belyaeva.confectionerygradle.services.impl;
 
-import com.belyaeva.confectionerygradle.model.entity.RoleEntity;
-import com.belyaeva.confectionerygradle.model.entity.UserEntity;
-import com.belyaeva.confectionerygradle.model.repository.UserRepository;
-import com.belyaeva.confectionerygradle.model.services.abstractions.UserService;
+import com.belyaeva.confectionerygradle.entity.RoleEntity;
+import com.belyaeva.confectionerygradle.entity.UserEntity;
+import com.belyaeva.confectionerygradle.repository.UserRepository;
+import com.belyaeva.confectionerygradle.services.abstractions.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;

@@ -1,11 +1,11 @@
 package com.belyaeva.confectionerygradle.controller;
 
-import com.belyaeva.confectionerygradle.model.entity.CartEntity;
-import com.belyaeva.confectionerygradle.model.entity.ProductEntity;
-import com.belyaeva.confectionerygradle.model.services.abstractions.ProductFacade;
-import com.belyaeva.confectionerygradle.model.services.impl.CartServiceImpl;
-import com.belyaeva.confectionerygradle.model.services.impl.ProductServiceImpl;
-import com.belyaeva.confectionerygradle.model.services.impl.UserServiceImpl;
+import com.belyaeva.confectionerygradle.entity.CartEntity;
+import com.belyaeva.confectionerygradle.entity.ProductEntity;
+import com.belyaeva.confectionerygradle.services.abstractions.ProductFacade;
+import com.belyaeva.confectionerygradle.services.impl.CartServiceImpl;
+import com.belyaeva.confectionerygradle.services.impl.ProductServiceImpl;
+import com.belyaeva.confectionerygradle.services.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -1,8 +1,8 @@
 package com.belyaeva.confectionerygradle.controller;
 
-import com.belyaeva.confectionerygradle.model.entity.CartEntity;
-import com.belyaeva.confectionerygradle.model.services.impl.CartItemServiceImpl;
-import com.belyaeva.confectionerygradle.model.services.impl.CartServiceImpl;
+import com.belyaeva.confectionerygradle.entity.CartEntity;
+import com.belyaeva.confectionerygradle.services.impl.CartItemServiceImpl;
+import com.belyaeva.confectionerygradle.services.impl.CartServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.belyaeva.confectionerygradle.model.services.impl.UserServiceImpl;
-import com.belyaeva.confectionerygradle.model.entity.UserEntity;
+import com.belyaeva.confectionerygradle.services.impl.UserServiceImpl;
+import com.belyaeva.confectionerygradle.entity.UserEntity;
 
 @Controller
 public class CartController {
