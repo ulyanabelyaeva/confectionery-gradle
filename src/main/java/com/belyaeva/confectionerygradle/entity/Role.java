@@ -8,6 +8,11 @@ import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Set;
 
+/**
+ * Model describe user`s roles (ex. user, admin)
+ *
+ * @author Ulyana
+ */
 @Entity
 @Table(name = "roles")
 @NoArgsConstructor

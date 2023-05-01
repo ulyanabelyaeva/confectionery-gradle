@@ -17,7 +17,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
-
+/**
+ * Model describe product (ex. cake)
+ *
+ * @author Ulyana
+ */
 @Getter
 @Setter
 @AllArgsConstructor

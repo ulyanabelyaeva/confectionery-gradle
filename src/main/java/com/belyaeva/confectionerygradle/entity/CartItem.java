@@ -3,7 +3,12 @@ package com.belyaeva.confectionerygradle.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-
+/**
+ * Model describe cart item.
+ * It contains link to cart and product.
+ *
+ * @author Ulyana
+ */
 @Entity
 @Table(name = "cartItem")
 @Getter

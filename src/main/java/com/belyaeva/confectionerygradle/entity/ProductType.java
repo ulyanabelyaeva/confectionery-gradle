@@ -11,6 +11,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Model describe type of product
+ *
+ * @author Ulyana
+ */
+
 @Getter
 @Setter
 @AllArgsConstructor

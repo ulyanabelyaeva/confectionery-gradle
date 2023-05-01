@@ -23,6 +23,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.Set;
 
+/**
+ * Model describe user or admin.
+ * Login (phone) and password are used for authentication.
+ *
+ * @author Ulyana
+ */
 @Entity
 @Table(name = "users")
 @Getter
@@ -32,22 +38,43 @@ import java.util.Set;
 @Builder
 public class User implements UserDetails {
 
+    /**
+     * Primary key
+     * */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /**
+     * Login
+     * */
     @Column(name = "phone")
     private String phone;
 
+    /**
+     * Password
+     * */
     @Column(name = "password")
     private String password;
 
+    /**
+     * Password confirmation field
+     * It is used when user is authenticating
+     * */
     @Transient
     private String passwordConfirm;
 
+    /**
+     * Name
+     * */
     @Column(name = "firstName")
     private String firstName;
 
+    /**
+     * Roles
+     * When user has registered he has default USER role
+     * Admin was ADMIN role
+     * */
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
