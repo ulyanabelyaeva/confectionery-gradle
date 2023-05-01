@@ -23,7 +23,9 @@ public class CartController {
     private final CartItemServiceImpl cartItemServiceImpl;
 
     @Autowired
-    public CartController(UserServiceImpl userServiceImpl, CartServiceImpl cartServiceImpl, CartItemServiceImpl cartItemServiceImpl) {
+    public CartController(UserServiceImpl userServiceImpl,
+                          CartServiceImpl cartServiceImpl,
+                          CartItemServiceImpl cartItemServiceImpl) {
         this.userServiceImpl = userServiceImpl;
         this.cartServiceImpl = cartServiceImpl;
         this.cartItemServiceImpl = cartItemServiceImpl;
@@ -42,7 +44,8 @@ public class CartController {
     }
 
     @PostMapping("/user/cart")
-    public String deleteItem(@RequestParam("btn") String btn, Model model){
+    public String deleteItem(@RequestParam("btn") String btn,
+                             Model model){
         if (btn.equals("pay")){
             User user = userServiceImpl.getTempUser();
             Cart cart = cartServiceImpl.getCartByUserId(user.getId());

@@ -19,7 +19,8 @@ public class UserController {
     private final CartServiceImpl cartServiceImpl;
 
     @Autowired
-    public UserController(UserServiceImpl userServiceImpl, CartServiceImpl cartServiceImpl) {
+    public UserController(UserServiceImpl userServiceImpl,
+                          CartServiceImpl cartServiceImpl) {
         this.userServiceImpl = userServiceImpl;
         this.cartServiceImpl = cartServiceImpl;
     }

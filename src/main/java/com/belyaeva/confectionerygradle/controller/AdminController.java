@@ -2,7 +2,7 @@ package com.belyaeva.confectionerygradle.controller;
 
 import com.belyaeva.confectionerygradle.entity.Cart;
 import com.belyaeva.confectionerygradle.entity.Product;
-import com.belyaeva.confectionerygradle.services.abstractions.ProductFacade;
+import com.belyaeva.confectionerygradle.services.abstractions.ProductTempUserFacade;
 import com.belyaeva.confectionerygradle.services.impl.CartServiceImpl;
 import com.belyaeva.confectionerygradle.services.impl.ProductServiceImpl;
 import com.belyaeva.confectionerygradle.services.impl.UserServiceImpl;
@@ -20,15 +20,18 @@ public class AdminController {
 
     private final UserServiceImpl userServiceImpl;
 
-    private final ProductFacade<Model, Model> productFacade;
+    private final ProductTempUserFacade productTempUserFacade;
 
     private final ProductServiceImpl productServiceImpl;
 
     @Autowired
-    public AdminController(CartServiceImpl cartServiceImpl, UserServiceImpl userServiceImpl, ProductFacade<Model, Model> productFacade, ProductServiceImpl productServiceImpl) {
+    public AdminController(CartServiceImpl cartServiceImpl,
+                           UserServiceImpl userServiceImpl,
+                           ProductTempUserFacade productTempUserFacade,
+                           ProductServiceImpl productServiceImpl) {
         this.cartServiceImpl = cartServiceImpl;
         this.userServiceImpl = userServiceImpl;
-        this.productFacade = productFacade;
+        this.productTempUserFacade = productTempUserFacade;
         this.productServiceImpl = productServiceImpl;
     }
 
@@ -41,7 +44,8 @@ public class AdminController {
     }
 
     @PostMapping("/admin")
-    public String reformOrder(@RequestParam("btn") String btn, @RequestParam("cartId") Long cartId, Model model){
+    public String reformOrder(@RequestParam("btn") String btn,
+                              @RequestParam("cartId") Long cartId){
         if (btn.equals("ready")){
             Cart cart = cartServiceImpl.getCartById(cartId);
             cartServiceImpl.moveOrderToReady(cart);
@@ -50,19 +54,23 @@ public class AdminController {
     }
 
     @GetMapping("/admin/catalog")
-    public String getAdminCatalog(@RequestParam(defaultValue="-1") Long id, Model model){
-        productFacade.getProductsAndUser(model);
+    public String getAdminCatalog(@RequestParam(defaultValue="-1") Long id,
+                                  Model model){
+        productTempUserFacade.getProductsAndUser(model);
         showPutOrAdd(id, model);
         return "catalog_admin";
     }
     @GetMapping("/admin/catalog/{id}")
-    public String getAdminCatalogByProductTypeId(@RequestParam(defaultValue="-1") Long id, @PathVariable("id") Long idSearch,Model model){
-        productFacade.getProductsByTypeAndUser(idSearch, model);
+    public String getAdminCatalogByProductTypeId(@RequestParam(defaultValue="-1") Long id,
+                                                 @PathVariable("id") Long idSearch,
+                                                 Model model){
+        productTempUserFacade.getProductsByTypeAndUser(idSearch, model);
         showPutOrAdd(id,model);
         return "catalog_admin";
     }
 
-    private void showPutOrAdd(Long id, Model model) {
+    private void showPutOrAdd(Long id,
+                              Model model) {
         if (id != -1){
             Product product = productServiceImpl.getProductById(id);
             product.setNameProductType(product.getProductType().getName());

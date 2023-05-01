@@ -1,7 +1,11 @@
 package com.belyaeva.confectionerygradle.controller;
 
-import com.belyaeva.confectionerygradle.entity.*;
-import com.belyaeva.confectionerygradle.services.abstractions.ProductFacade;
+import com.belyaeva.confectionerygradle.entity.Cart;
+import com.belyaeva.confectionerygradle.entity.CartItem;
+import com.belyaeva.confectionerygradle.entity.Product;
+import com.belyaeva.confectionerygradle.entity.Role;
+import com.belyaeva.confectionerygradle.entity.User;
+import com.belyaeva.confectionerygradle.services.abstractions.ProductTempUserFacade;
 import com.belyaeva.confectionerygradle.services.impl.CartItemServiceImpl;
 import com.belyaeva.confectionerygradle.services.impl.CartServiceImpl;
 import com.belyaeva.confectionerygradle.services.impl.ProductServiceImpl;
@@ -18,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class MainController {
 
-    private final ProductFacade<Model, Model> productFacade;
+    private final ProductTempUserFacade productTempUserFacade;
 
     private final CartItemServiceImpl cartItemServiceImpl;
 
@@ -29,8 +33,12 @@ public class MainController {
     private final CartServiceImpl cartServiceImpl;
 
     @Autowired
-    public MainController(ProductFacade<Model, Model> productFacade, CartItemServiceImpl cartItemServiceImpl, UserServiceImpl userServiceImpl, ProductServiceImpl productServiceImpl, CartServiceImpl cartServiceImpl) {
-        this.productFacade = productFacade;
+    public MainController(ProductTempUserFacade productTempUserFacade,
+                          CartItemServiceImpl cartItemServiceImpl,
+                          UserServiceImpl userServiceImpl,
+                          ProductServiceImpl productServiceImpl,
+                          CartServiceImpl cartServiceImpl) {
+        this.productTempUserFacade = productTempUserFacade;
         this.cartItemServiceImpl = cartItemServiceImpl;
         this.userServiceImpl = userServiceImpl;
         this.productServiceImpl = productServiceImpl;
@@ -45,13 +53,14 @@ public class MainController {
 
     @GetMapping("/catalog")
     public String getProducts(Model model){
-        productFacade.getProductsAndUser(model);
+        productTempUserFacade.getProductsAndUser(model);
         return isAdmin() ? "redirect:/admin/catalog" : "catalog";
     }
 
     @GetMapping("/catalog/{id}")
-    public String getProductByProductTypeId(@PathVariable("id") Long id, Model model){
-        productFacade.getProductsByTypeAndUser(id, model);
+    public String getProductByProductTypeId(@PathVariable("id") Long id,
+                                            Model model){
+        productTempUserFacade.getProductsByTypeAndUser(id, model);
         return isAdmin() ? "redirect:/admin/catalog" : "catalog";
     }
 
@@ -73,7 +82,8 @@ public class MainController {
     }
 
     @PostMapping("/catalog/{id}")
-    public String addToCartFromCatalogByProductType(@RequestParam("btn") String btn, Model model, HttpSession session){
+    public String addToCartFromCatalogByProductType(@RequestParam("btn") String btn,
+                                                    HttpSession session){
 
         if (userServiceImpl.getTempUser() == null){
             session.setAttribute("error", "Чтобы добавлять товары в корзину необходимо авторизоваться");
@@ -85,7 +95,8 @@ public class MainController {
     }
 
     @PostMapping("/catalog")
-    public String addToCart(@RequestParam("btn") String btn, Model model, HttpSession session){
+    public String addToCart(@RequestParam("btn") String btn,
+                            HttpSession session){
 
         if (userServiceImpl.getTempUser() == null){
             session.setAttribute("error", "Чтобы добавлять товары в корзину необходимо авторизоваться");

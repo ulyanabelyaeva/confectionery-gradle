@@ -27,7 +27,9 @@ public class ProductServiceImpl implements ProductService {
     private final StorageProperties storageProperties;
 
     @Autowired
-    public ProductServiceImpl(ProductRepository productRepository, ProductTypeServiceImpl productTypeServiceImpl, StorageProperties storageProperties) {
+    public ProductServiceImpl(ProductRepository productRepository,
+                              ProductTypeServiceImpl productTypeServiceImpl,
+                              StorageProperties storageProperties) {
         this.productRepository = productRepository;
         this.productTypeServiceImpl = productTypeServiceImpl;
         this.storageProperties = storageProperties;

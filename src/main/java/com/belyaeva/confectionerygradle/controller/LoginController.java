@@ -21,7 +21,8 @@ public class LoginController {
     private final CartServiceImpl cartServiceImpl;
 
     @Autowired
-    public LoginController(UserServiceImpl userServiceImpl, CartServiceImpl cartServiceImpl) {
+    public LoginController(UserServiceImpl userServiceImpl,
+                           CartServiceImpl cartServiceImpl) {
         this.userServiceImpl = userServiceImpl;
         this.cartServiceImpl = cartServiceImpl;
     }
@@ -38,7 +39,8 @@ public class LoginController {
     }
 
     @PostMapping("/reg")
-    public String addUser(@ModelAttribute("user") User user, HttpSession session) {
+    public String addUser(@ModelAttribute("user") User user,
+                          HttpSession session) {
 
         if (!user.getPassword().equals(user.getPasswordConfirm())){
             session.setAttribute("userError", "Пароли не совпадают");
